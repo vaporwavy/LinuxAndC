@@ -1,0 +1,77 @@
+#update your Raspberry Pi to the latest version
+sudo apt update && sudo apt -y upgrade
+
+#reboot your Raspberry Pi Once updates finish
+sudo reboot
+
+# Project: build a Raspberry Pi NAS with SAMBA
+
+1)Let’s first create a place to store all of our shares.  Execute the following commands
+sudo mkdir /home/MyShares
+sudo mkdir /home/MyShares/Public
+sudo chown -R root:users /home/MyShares/public
+sudo chmod -R ug=rwx, o=rx /home/MyShares/public
+
+2) install SAMBA
+sudo apt install samba samba-common-bin
+sudo nano /etc/samba/smb.conf
+
+#Just below the Authentication section add the following line:
+security = user
+
+#At the bottom of the file add the following lines:
+[public]
+  comment = public storage
+  path = /home/MyShares/public
+  valid users = @users
+  force group = users
+  create mask = 0660
+  directory mask = 0771
+  read only = no
+#Close the file and save it by pressing Control+X and then answering Y to save
+#This completes our configuration of Samba!
+#command to restart Samba
+sudo /etc/init.d/samba restart
+
+#add the “pi” user to Samba
+sudo smbpasswd -a pi
+
+#You will be prompted to enter and verify the password for this user. ready to access your shares!
+#Connecting to the Raspberry Pi Samba Server
+#If for some reason the Pi isn’t showing up enter \\your_pi_ip_address\public into the my computer.  
+#In my case \\192.168.0.26\public.
+#If you don't know the IP address of your Raspberry Pi enter below:
+hostname -I
+
+#*********************************
+
+Project2: adding External HDD to Raspberry Pi SAMBA Server
+#After USB HDD is connected to Raspberry Pi, wait a few seconds for recognized and then enter following:
+dmesg
+
+#the recently attached hard disk.  In our case the new device is SDA1.
+#Now we need to unmount and  format the drive with the ext4 file-system
+umount /dev/sda1
+sudo mkfs.ext4 /dev/sda1
+
+#create a file folder and give it the right permissions
+sudo mkdir /home/MyShares/public/MyUSBDrive
+sudo chown -R root:users /home/MyShares/public/MyUSBDrive
+sudo chmod -R ug=rwx,o=rx /home/MyShares/public/MyUSBDrive
+sudo mount /dev/sda1 /home/MyShares/public/MyUSBDrive
+
+#automatically mount each time you reboot your Raspberry Pi
+sudo nano /etc/fstab
+
+#Add the following bit of configuration to the last line of the file:
+/dev/sda1 /home/MyShares/public/MyUSBDrive auto noatime,nofail 0 0
+
+#Your Raspberry Pi NAS with external USB drive is now ready to go! 
+#************************************
+
+Project3: Build a Raspberry Pi NAS with OMV
+url> https://www.thegeekpub.com/239067/create-a-raspberry-pi-nas-with-samba-or-omv/
+
+Project4: Pi-Hole for ads blocker
+url> https://www.cyberciti.biz/faq/ubuntu-linux-install-pi-hole-with-a-openvpn/
+url> https://itchy.nl/raspberry-pi-3-with-openvpn-pihole-dnscrypt
