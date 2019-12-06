@@ -1,0 +1,53 @@
+$ gcc -g -o fact fact.c
+# -g option will collect the information from debugger
+# -o will create a output file
+# fact is the output file
+# fact.c is the program file
+
+#open in debugging mode by 'gdb' command
+$ gdb fact   
+(gdb) run
+(gdb) where
+#go by stack and find the problem with up/down
+ex:
+(gdb)up
+(gdb)up
+(gdb)down
+
+#print the source code in debugger
+(gdb) list
+
+#find the line which make an error/ go to exact stack with up or down
+(gdb)up
+(gdb) print i    
+(gdb) print day[i]
+note: this is how we find the problem, first better to find the problem in the program by line number.
+# quit from debugging mode Enter from keyboard> q or quit
+(gdb) q
+then Y
+
+###################Sample code###########################
+
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+  int i;
+  char *day[7] = {
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+      };
+     
+  for(i = 0; i < 10; i++)
+  {
+    printf("day[%d] = %s\n", i, day[i] );
+  }
+  
+  return 0;
+}
+#####################end###################################
