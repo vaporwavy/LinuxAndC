@@ -1,0 +1,191 @@
+#cat 
+you can view multiple files at the same time.
+$ cat file1 file2
+$cat -n /etc/logrotate.conf
+While displaying the file, following cat -n command will prepend the line number to each line of the output.
+
+#cp
+Copy file1 to file2 preserving the mode, ownership and timestamp.
+$ cp -p file1 file2
+
+Copy file1 to file2. if file2 exists prompt for confirmation before overwritting it.
+$ cp -i file1 file2
+
+
+#chmod
+	chmod command is used to change the permissions for a file or directory.
+
+Give full access to user and group (i.e read, write and execute ) on a specific file.
+$ chmod ug+rwx file.txt
+
+Revoke all access for the group (i.e read, write and execute ) on a specific file.
+$ chmod g-rwx file.txt
+
+Apply the file permissions recursively to all the files in the sub-directories.
+$ chmod -R ug+rwx file.txt
+
+#chown
+chown command is used to change the owner and group of a file. \
+To change owner to oracle and group to db on a file. i.e Change both owner and group at the same time.
+$ chown oracle:dba dbora.sh
+
+Use -R to change the ownership recursively.
+$ chown -R oracle:dba /home/oracle
+
+#diff  compares two text files
+	The -y (side by side) option shows the line differences side by side. 
+	The -w (width) option lets you specify the maximum line width to use to avoid wraparound lines. 
+	The two files are called alpha1.txt and alpha2.txt in this example. 
+	The --suppress-common-lines prevents diff from listing the matching lines, letting you focus on the lines which have differences.
+diff -y -W 70 file1.txt file2.txt --suppress-common-lines
+
+# echo
+echo a stirng of text
+echo $USER
+echo $HOME
+echo $PATH
+
+#exit
+exit
+
+# find file 
+#We do this using the -type option with the f parameter. The f parameter stands for files.
+$ find . -type f -name *ones*
+$ find . -iname *wild*  
+$ find -iname "MyCProgram.c"
+#-iname (insensitive name) option
+
+Find all empty files in home directory
+# find ~ -empty
+
+#groups
+The groups command tells you which groups a user is a member of.
+$groups dave
+$groups russel
+
+#grep 
+Search for a given string in a file (case in-sensitive search). 
+$ grep -i "the" demo_file
+
+Print the matched line, along with the 3 lines after it.
+$ grep -A 3 -i "example" demo_text
+
+Search for a given string in all files recursively
+$ grep -r "ramesh" *
+
+
+#gzip
+gzip core.c  >create a zip file and remove original
+gzip -k core.c> it retain both the original and compressed version
+
+#head 
+	The head command gives you a listing of the first 10 lines of a file. 
+	If you want to see fewer or more lines, use the -n (number) option.
+head -core.c
+head -n 5 core.c
+
+#history
+	The history command shows a list of the commands entered since you started the session. 
+	The joy of history is that now you can replay any of them by using a command such as:
+$ history > all command
+$!3   >rank of command
+$ !!   >last command
+$ history | grep dnf >search command
+
+#ifconfig
+$ ifconfig -a
+view or configure a network interface on the Linux
+
+#mkdir
+	creates a directory called temp under your home directory.
+$ mkdir ~/temp
+
+# mv
+	The mv command allows you to move files and directories from directory to directory. It also allows you to rename files.
+$mv ~/Documents/Ukulele/Apache.pdf .    > . means current directory
+$mv ~/Documents/Ukulele/Apache.pdf ./The_Shadows_Apache.pdf  >rename the file in current directory
+
+
+#passwd
+	The passwd command lets you change the password for a user. Just type passwd to change your own password.
+
+
+$sudo passwd russel
+$ passwd -d USERNAME 
+remove password for a specific user.
+
+#ping
+check connection between client/server with ip address or dns name.
+Ping a remote host by sending only 5 packets.
+$ ping -c 5 gmail.com
+
+
+#ps
+	The ps command lists running processes. Using ps without any options causes it to list the processes running in the current shell.
+$ps
+$ps -u russel | less
+	To see all the processes related to a particular user, use the -u (user) option. This is likely to be a long list, so for convenience pipe it through less.
+
+#rm
+Get confirmation before removing the file.
+$ rm -i filename.txt
+
+Print the filename and get confirmation before removing the file.
+$ rm -i file*
+
+#tar
+
+Create a new tar archive.
+$ tar cvf archive_name.tar dirname/
+
+Extract from an existing tar archive.
+$ tar xvf archive_name.tar
+
+View an existing tar archive.
+$ tar tvf archive_name.tar
+
+
+#ssh
+Display ssh client version
+$ ssh -V
+output: OpenSSH_3.9p1, OpenSSL 0.9.7a Feb 19 2003
+
+#Sort 
+a file in ascending order
+$ sort names.txt
+
+Sort a file in descending order
+$ sort -r names.txt
+
+
+#su
+Switch to a different user account using su command. Super user can switch to any other user without entering their password.
+$ su - USERNAME
+
+
+#uname
+	You can obtain some system information regarding the Linux computer you’re working on with the uname command.
+
+Use the -a (all) option to see everything.
+Use the -s (kernel name) option to see the type of kernel.
+Use the -r (kernel release) option to see the kernel release.
+Use the -v (kernel version) option to see the kernel version.
+
+$uname -a
+$uanme -s
+$uname -r
+$uname -v
+
+
+#whoami
+Use whoami to find out who you are logged in
+$whoami
+#echo $USER or echo "$USER"
+#who
+
+Now that we know who this user is, we can obtain more information about them. The id command is a good place to start.
+$id
+$groups russel
+
+
+
