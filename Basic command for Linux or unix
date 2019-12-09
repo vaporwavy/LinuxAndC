@@ -4,6 +4,10 @@ $ cat file1 file2
 $cat -n /etc/logrotate.conf
 While displaying the file, following cat -n command will prepend the line number to each line of the output.
 
+Combine 2 test files to another file:
+$ cat list1.txt list2.txt > todo.txt
+
+
 #cp
 Copy file1 to file2 preserving the mode, ownership and timestamp.
 $ cp -p file1 file2
@@ -56,7 +60,10 @@ $ find -iname "MyCProgram.c"
 #-iname (insensitive name) option
 
 Find all empty files in home directory
-# find ~ -empty
+$ find ~ -empty
+#Q.Write a command that will look for files with an extension "c", and has the occurrence of the string "apple" in it.
+$ Find ./ -name "*.c" | xargs grep –i "apple"
+
 
 #groups
 The groups command tells you which groups a user is a member of.
@@ -71,7 +78,13 @@ Print the matched line, along with the 3 lines after it.
 $ grep -A 3 -i "example" demo_text
 
 Search for a given string in all files recursively
-$ grep -r "ramesh" *
+$ grep -r "russel" *
+Q.Case insensitive search > you can force grep to ignore word case i.e match boo, Boo, BOO
+$ grep -i “boo” /file
+Q. Searching in all files recursively using grep –r
+$ grep -r 'word' /path/to/file
+Q. String count
+$ grep -c 'go' /path/to/file   output: 6
 
 
 #gzip
@@ -95,6 +108,8 @@ $ history | grep dnf >search command
 #ifconfig
 $ ifconfig -a
 view or configure a network interface on the Linux
+$ifconfig eth0 up or ifconfig eth0 down
+here eth0 is the network card
 
 #mkdir
 	creates a directory called temp under your home directory.
@@ -125,6 +140,19 @@ $ ping -c 5 gmail.com
 $ps
 $ps -u russel | less
 	To see all the processes related to a particular user, use the -u (user) option. This is likely to be a long list, so for convenience pipe it through less.
+# lists running processes
+$ps –aux  or $ps ux
+$sudo ps –a
+
+##search for a particular Unix process using 
+$ ps aux | grep firefox  or  pidof firefox  output get PID(process id)
+$ sudo ps aux | grep httpd or ps –ef |grep httpd
+
+##Kill the process using PID
+$ sudo kill 3486  or $ sudo kill -9 3486 or #kill 3486
+
+# pwd = current directory
+$ pwd
 
 #rm
 Get confirmation before removing the file.
@@ -143,12 +171,18 @@ $ tar xvf archive_name.tar
 
 View an existing tar archive.
 $ tar tvf archive_name.tar
+Create a tar archive and extract
+$ tar cvf file.tar direname/ >create
+$ gzip test.txt/ >create *.gz file
+$ tar xvf file.tar direname >extract
+$ gzip –d test.txt.gz  or unzip test.zip >extract
 
 
 #ssh
 Display ssh client version
 $ ssh -V
 output: OpenSSH_3.9p1, OpenSSL 0.9.7a Feb 19 2003
+$ ssh –l jsmith remotehost.com
 
 #Sort 
 a file in ascending order
@@ -187,6 +221,28 @@ Now that we know who this user is, we can obtain more information about them. Th
 $id
 $groups russel
 
+## Q.WC Command for word count
+$ wc file.txt   , for line#> $wc –l file.txt, for word#> $wc –w file.txt, for bytes> $ wc –c file.txt.
+12  16  112  file.txt    here, 12 > line#, 16>word#, 112>bytes
+
+# ADD USER
+$ sudo useradd russel
+$ sudo passwd abc123
+$ sudo useradd russel -p abc123  >in a single line
+
+# Create GROUP
+$ sudo groupadd tester
+
+add user to the group
+$ sudo usermod -a -G tester russel
+The -a option tells usermod we are appending and the -G option tells usermod we are appending to the group name that follows the option.
+
+#find the group member
+$ grep tester /etc/group
+
+#another way to find memeber 
+$ sudo apt-get install members
+$ members tester
 
 ########################
 Network
