@@ -44,7 +44,7 @@ $ chown -R oracle:dba /home/oracle
 diff -y -W 70 file1.txt file2.txt --suppress-common-lines
 
 # echo
-echo a stirng of text
+echo a string of text
 echo $USER
 echo $HOME
 echo $PATH
